@@ -8,6 +8,8 @@ The documentation uses the **OpenAPI Specification 3.0.3** and is rendered with 
 
 Tool reference: https://github.com/swagger-api/swagger-ui
 
+Note: this folder is a local git repository. To provide the assignment deliverable as a repository link, push this repository to GitHub, GitLab, Bitbucket, or another code hosting service and submit that hosted URL.
+
 ## Repository Contents
 
 - `openapi.json` - OpenAPI Specification file for the fictional Product Catalog API.
@@ -54,11 +56,11 @@ Then open:
 http://localhost:8080/docs/
 ```
 
-If Python is not installed, use any static file server and open the same `/docs/` path.
+`docs/index.html` loads Swagger UI from the public `unpkg.com` CDN, so viewing the rendered page requires internet access. If Python is not installed, use any static file server and open the same `/docs/` path.
 
 ## Validation Checklist
 
-- The repository contains a valid OpenAPI JSON file.
+- The repository contains an OpenAPI 3.0.3 JSON file.
 - The API includes one GET endpoint and one POST endpoint.
 - Both endpoints include descriptions, parameters, schemas, and examples.
 - Swagger UI can render the OpenAPI specification from `docs/index.html`.
