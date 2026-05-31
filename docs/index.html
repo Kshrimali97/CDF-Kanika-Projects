@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acme Product Catalog API Docs</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
+    <style>
+      body {
+        margin: 0;
+        background: #f7f8fb;
+      }
+
+      .topbar {
+        display: none;
+      }
+
+      .docs-header {
+        padding: 28px 40px;
+        background: #172033;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .docs-header h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+
+      .docs-header p {
+        max-width: 860px;
+        margin: 0;
+        color: #d9e2f2;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="docs-header">
+      <h1>Acme Product Catalog API</h1>
+      <p>
+        Rendered Swagger UI documentation for a fictional product catalog
+        service. The source OpenAPI definition is located at ../openapi.json.
+      </p>
+    </header>
+    <div id="swagger-ui"></div>
+
+    <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <script>
+      window.addEventListener("load", function () {
+        SwaggerUIBundle({
+          url: "../openapi.json",
+          dom_id: "#swagger-ui",
+          deepLinking: true,
+          displayOperationId: true,
+          defaultModelsExpandDepth: 2,
+          defaultModelExpandDepth: 2
+        });
+      });
+    </script>
+  </body>
+</html>

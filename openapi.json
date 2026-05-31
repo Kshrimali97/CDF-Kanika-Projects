@@ -1,0 +1,425 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Acme Product Catalog API",
+    "version": "1.0.0",
+    "description": "A fictional REST API for browsing and creating products in a lightweight e-commerce catalog. This specification is written as an API documentation prototype using the OpenAPI Specification."
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/v1",
+      "description": "Fictional production server"
+    },
+    {
+      "url": "https://sandbox.example.com/v1",
+      "description": "Fictional sandbox server for testing integrations"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Operations for reading and creating product catalog records."
+    }
+  ],
+  "paths": {
+    "/products/{id}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get a product by ID",
+        "description": "Returns a single product from the catalog. Clients can optionally request review statistics and choose the currency used for price display.",
+        "operationId": "getProductById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Unique product identifier.",
+            "schema": {
+              "type": "string",
+              "pattern": "^prod_[a-zA-Z0-9]+$",
+              "example": "prod_12345"
+            }
+          },
+          {
+            "name": "includeReviews",
+            "in": "query",
+            "required": false,
+            "description": "When true, includes aggregate review statistics in the response.",
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "example": true
+            }
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "description": "Currency code used to format the returned product price.",
+            "schema": {
+              "type": "string",
+              "enum": ["USD", "EUR", "GBP"],
+              "default": "USD",
+              "example": "USD"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found and returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "camera": {
+                    "summary": "Example product",
+                    "value": {
+                      "id": "prod_12345",
+                      "name": "Aurora Mirrorless Camera",
+                      "description": "Compact mirrorless camera with 4K video and a weather-sealed body.",
+                      "category": "Electronics",
+                      "price": {
+                        "amount": 899.99,
+                        "currency": "USD"
+                      },
+                      "inventory": {
+                        "status": "in_stock",
+                        "quantity": 42
+                      },
+                      "reviewSummary": {
+                        "averageRating": 4.7,
+                        "reviewCount": 318
+                      },
+                      "createdAt": "2026-05-31T18:00:00Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid path or query parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "code": "INVALID_PARAMETER",
+                  "message": "The currency parameter must be one of USD, EUR, or GBP.",
+                  "requestId": "req_8f4b1d"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No product exists for the supplied ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "code": "PRODUCT_NOT_FOUND",
+                  "message": "No product was found for id prod_99999.",
+                  "requestId": "req_21ac90"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "Create a product",
+        "description": "Creates a new product record in the catalog. Integrators can create a draft product or publish it immediately by setting the publish query parameter.",
+        "operationId": "createProduct",
+        "parameters": [
+          {
+            "name": "publish",
+            "in": "query",
+            "required": false,
+            "description": "When true, the product is immediately visible in catalog search results. When false, the product is saved as a draft.",
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "example": true
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Product details used to create the catalog record.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateRequest"
+              },
+              "examples": {
+                "newProduct": {
+                  "summary": "Create a new backpack",
+                  "value": {
+                    "name": "TrailForge Daypack",
+                    "description": "Twenty-liter water-resistant daypack with padded laptop storage.",
+                    "category": "Outdoor Gear",
+                    "price": {
+                      "amount": 79.95,
+                      "currency": "USD"
+                    },
+                    "inventory": {
+                      "quantity": 120
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created successfully.",
+            "headers": {
+              "Location": {
+                "description": "URL of the newly created product resource.",
+                "schema": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://api.example.com/v1/products/prod_67890"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "example": {
+                  "id": "prod_67890",
+                  "name": "TrailForge Daypack",
+                  "description": "Twenty-liter water-resistant daypack with padded laptop storage.",
+                  "category": "Outdoor Gear",
+                  "price": {
+                    "amount": 79.95,
+                    "currency": "USD"
+                  },
+                  "inventory": {
+                    "status": "in_stock",
+                    "quantity": 120
+                  },
+                  "createdAt": "2026-05-31T18:15:00Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request body is missing required fields or contains invalid values.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "code": "VALIDATION_ERROR",
+                  "message": "The price.amount field must be greater than 0.",
+                  "requestId": "req_77aa11"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "A product with the same name and category already exists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "code": "DUPLICATE_PRODUCT",
+                  "message": "A product named TrailForge Daypack already exists in Outdoor Gear.",
+                  "requestId": "req_4fb8c2"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "description": "Complete product record returned by the catalog API.",
+        "required": ["id", "name", "description", "category", "price", "inventory", "createdAt"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique product identifier assigned by the API.",
+            "example": "prod_12345"
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer-facing product name.",
+            "example": "Aurora Mirrorless Camera"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short product description suitable for catalog display.",
+            "example": "Compact mirrorless camera with 4K video and a weather-sealed body."
+          },
+          "category": {
+            "type": "string",
+            "description": "Catalog category used for browsing and filtering.",
+            "example": "Electronics"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Price"
+          },
+          "inventory": {
+            "$ref": "#/components/schemas/Inventory"
+          },
+          "reviewSummary": {
+            "$ref": "#/components/schemas/ReviewSummary"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp for when the product was created.",
+            "example": "2026-05-31T18:00:00Z"
+          }
+        }
+      },
+      "ProductCreateRequest": {
+        "type": "object",
+        "description": "Fields required to create a new product.",
+        "required": ["name", "description", "category", "price", "inventory"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 120,
+            "description": "Customer-facing product name.",
+            "example": "TrailForge Daypack"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 500,
+            "description": "Short product description suitable for catalog display.",
+            "example": "Twenty-liter water-resistant daypack with padded laptop storage."
+          },
+          "category": {
+            "type": "string",
+            "description": "Catalog category where the product should appear.",
+            "example": "Outdoor Gear"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Price"
+          },
+          "inventory": {
+            "$ref": "#/components/schemas/InventoryCreate"
+          }
+        }
+      },
+      "Price": {
+        "type": "object",
+        "description": "Monetary price for a product.",
+        "required": ["amount", "currency"],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "minimum": 0.01,
+            "description": "Product price amount.",
+            "example": 79.95
+          },
+          "currency": {
+            "type": "string",
+            "description": "Three-letter ISO-style currency code.",
+            "enum": ["USD", "EUR", "GBP"],
+            "example": "USD"
+          }
+        }
+      },
+      "Inventory": {
+        "type": "object",
+        "description": "Inventory status returned for a product.",
+        "required": ["status", "quantity"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Availability state derived from the current quantity.",
+            "enum": ["in_stock", "low_stock", "out_of_stock"],
+            "example": "in_stock"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of sellable units currently available.",
+            "example": 120
+          }
+        }
+      },
+      "InventoryCreate": {
+        "type": "object",
+        "description": "Starting inventory information supplied when creating a product.",
+        "required": ["quantity"],
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Initial number of sellable units available.",
+            "example": 120
+          }
+        }
+      },
+      "ReviewSummary": {
+        "type": "object",
+        "description": "Aggregate review statistics included when includeReviews is true.",
+        "required": ["averageRating", "reviewCount"],
+        "properties": {
+          "averageRating": {
+            "type": "number",
+            "format": "double",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "Average customer rating on a five-point scale.",
+            "example": 4.7
+          },
+          "reviewCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of reviews included in the average rating.",
+            "example": 318
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Standard error payload returned when a request cannot be completed.",
+        "required": ["code", "message", "requestId"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Stable application-specific error code.",
+            "example": "VALIDATION_ERROR"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable explanation of the error.",
+            "example": "The price.amount field must be greater than 0."
+          },
+          "requestId": {
+            "type": "string",
+            "description": "Identifier that support teams can use to trace the failed request.",
+            "example": "req_77aa11"
+          }
+        }
+      }
+    }
+  }
+}
