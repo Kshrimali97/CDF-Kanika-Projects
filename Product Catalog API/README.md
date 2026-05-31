@@ -10,7 +10,7 @@ The documentation uses the **OpenAPI Specification 3.0.3** and is rendered with 
 
 Tool reference: https://github.com/swagger-api/swagger-ui
 
-Note: this folder is a local git repository. To provide the assignment deliverable as a repository link, push this repository to GitHub, GitLab, Bitbucket, or another code hosting service and submit that hosted URL.
+Note: in the GitHub repository, this API documentation project is contained in the `Product Catalog API` directory.
 
 ## Task
 
@@ -72,9 +72,9 @@ Includes:
 
 ## How to View the Rendered Documentation
 
-Because the Swagger UI page loads `openapi.json`, serve the repository with a local static web server instead of opening the HTML file directly.
+Because the Swagger UI page loads `openapi.json`, serve this project directory with a local static web server instead of opening the HTML file directly.
 
-From the repository root:
+From the `Product Catalog API` directory:
 
 ```powershell
 python -m http.server 8080
