@@ -1,0 +1,95 @@
+{
+  "app": "Instagram",
+  "feature": "Close Friends Recap",
+  "featureDescription": "A fictional AI-assisted sharing feature that turns recent photos and videos into a polished private recap for a user's Close Friends list.",
+  "persona": {
+    "name": "Maya",
+    "age": 24,
+    "type": "Privacy-conscious social sharer",
+    "goal": "Share event memories quickly with trusted friends without overposting publicly",
+    "researchBasis": "Pew and DataReportal research show Instagram is widely used by younger adults, making a privacy-conscious young adult sharer a plausible primary persona."
+  },
+  "references": [
+    {
+      "label": "Pew Research Center Social Media Fact Sheet",
+      "url": "https://www.pewresearch.org/internet/fact-sheet/social-media/"
+    },
+    {
+      "label": "DataReportal Digital 2026: United States",
+      "url": "https://datareportal.com/reports/digital-2026-united-states-of-america"
+    },
+    {
+      "label": "draw.io / diagrams.net GitHub",
+      "url": "https://github.com/jgraph/drawio"
+    },
+    {
+      "label": "Service Design Tools Journey Map",
+      "url": "https://servicedesigntools.org/tools/journey-map"
+    }
+  ],
+  "stages": [
+    {
+      "name": "Awareness",
+      "action": "Notices a new Create Recap prompt after posting weekend photos.",
+      "thought": "This could save me from picking and captioning everything manually.",
+      "feeling": "Curious, lightly skeptical",
+      "painPoint": "The prompt appears before Maya understands what will be included.",
+      "opportunity": "Show a short preview and clear Close Friends privacy badge.",
+      "highlight": false
+    },
+    {
+      "name": "Consideration",
+      "action": "Opens the recap preview and scans the audience label and edit controls.",
+      "thought": "Is this really private, and can I remove awkward clips?",
+      "feeling": "Interested, cautious",
+      "painPoint": "Privacy uncertainty creates hesitation before she continues.",
+      "opportunity": "Add explicit audience confirmation before setup.",
+      "highlight": true
+    },
+    {
+      "name": "Setup",
+      "action": "Reviews her Close Friends list and removes a few contacts.",
+      "thought": "I forgot some people were still on this list.",
+      "feeling": "In control, slightly anxious",
+      "painPoint": "Audience management interrupts the sharing flow.",
+      "opportunity": "Offer quick audience presets and recent-list-change reminders.",
+      "highlight": false
+    },
+    {
+      "name": "Content Selection",
+      "action": "Chooses photos and videos, then lets Instagram suggest order and music.",
+      "thought": "The suggestions are good, but there are too many little choices.",
+      "feeling": "Productive, overwhelmed",
+      "painPoint": "Editing overload makes the recap feel like work.",
+      "opportunity": "Provide a good-enough default path with optional advanced edits.",
+      "highlight": true
+    },
+    {
+      "name": "Preview and Edit",
+      "action": "Watches the recap, trims one clip, changes the cover, and edits the caption.",
+      "thought": "This looks better than what I would make manually.",
+      "feeling": "Confident, pleased",
+      "painPoint": "She wants assurance that edits are saved before sharing.",
+      "opportunity": "Use autosave status and a lightweight before-share checklist.",
+      "highlight": false
+    },
+    {
+      "name": "Share",
+      "action": "Shares the recap to Close Friends and sends it to two people in DMs.",
+      "thought": "Nice. That was fast, and it still feels personal.",
+      "feeling": "Relieved, excited",
+      "painPoint": "She is unsure whether DM recipients can forward the recap.",
+      "opportunity": "Clarify forwarding behavior and private-share controls.",
+      "highlight": false
+    },
+    {
+      "name": "Post-Use",
+      "action": "Sees quick reactions from close friends and saves the recap.",
+      "thought": "This is exactly the sharing I want after a busy weekend.",
+      "feeling": "Delighted, connected",
+      "painPoint": "The saved recap could be hard to find later.",
+      "opportunity": "Create a memory collection and suggest the format after similar events.",
+      "highlight": true
+    }
+  ]
+}
