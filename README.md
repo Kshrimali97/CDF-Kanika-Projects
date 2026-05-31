@@ -43,7 +43,7 @@ A link to a code repository containing the OpenAPI Specification file and, if ap
 ## Repository Contents
 
 - `openapi.json` - OpenAPI Specification file for the fictional Product Catalog API.
-- `docs/index.html` - Swagger UI documentation page that renders `openapi.json`.
+- `api-docs/index.html` - Swagger UI documentation page that renders `openapi.json`.
 - `README.md` - Project summary and viewing instructions.
 
 ## Documented Endpoints
@@ -83,18 +83,19 @@ python -m http.server 8080
 Then open:
 
 ```text
-http://localhost:8080/docs/
+http://localhost:8080/api-docs/
 ```
 
-`docs/index.html` loads Swagger UI from the public `unpkg.com` CDN, so viewing the rendered page requires internet access. If Python is not installed, use any static file server and open the same `/docs/` path.
+`api-docs/index.html` loads Swagger UI from the public `unpkg.com` CDN, so viewing the rendered page requires internet access. If Python is not installed, use any static file server and open the same `/api-docs/` path.
 
 ## Validation Checklist
 
 - The repository contains an OpenAPI 3.0.3 JSON file.
 - The API includes one GET endpoint and one POST endpoint.
 - Both endpoints include descriptions, parameters, schemas, and examples.
-- Swagger UI can render the OpenAPI specification from `docs/index.html`.
+- Swagger UI can render the OpenAPI specification from `api-docs/index.html`.
 
 ## Publishing Note
 
 To satisfy an assignment requirement for a repository link, publish this folder to GitHub, GitLab, or another code hosting service and submit the hosted repository URL.
+
